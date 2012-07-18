@@ -1,0 +1,1 @@
+include flask_alembic/templates/flask/*.mako flask_alembic/templates/flask/README flask_alembic/templates/flask/env.py
