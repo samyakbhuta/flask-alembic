@@ -10,7 +10,7 @@ __all__ = ('FlaskAlembicConfig', 'ManageMigrations', )
 class FlaskAlembicConfig(Config):
 
     def __init__(self, file_=None):
-        super(FlaskConfig, self).__init__(file_)
+        super(FlaskAlembicConfig, self).__init__(file_)
 
     def get_template_directory(self):
         package_dir = os.path.abspath(os.path.dirname(__file__))
@@ -31,16 +31,15 @@ class ManageMigrations(Command):
         return CatchAllParser()
 
     def run(self, args):
-
         # let's hijack init and list_templates
         # we want to provide our own config object
         # in order to provide a custom get_template_directory function
         if args[0] in ['list_templates', 'init']:
             config = FlaskAlembicConfig("alembic.ini")
-            if args[0] is 'list_templates':
+            if args[0] == 'list_templates':
                 return list_templates(config)
             else:
-                return init(config, 'flask-alembic', template='flask')
+                return init(config, 'alembic', template='flask')
 
         import sys, os.path
         prog = '%s %s' % (os.path.basename(sys.argv[0]), sys.argv[1])
