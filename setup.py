@@ -22,11 +22,6 @@ setup(
     long_description=__doc__,
     packages=['flask_alembic'],
     zip_safe=False,
-    include_package_data=True,
-    # include static assets
-    package_data = {
-        '': ['*.jinja', '*.js']
-    },
     platforms='any',
     install_requires=[
         'Flask',

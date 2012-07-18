@@ -43,5 +43,9 @@ class ManageMigrations(Command):
 
         import sys, os.path
         prog = '%s %s' % (os.path.basename(sys.argv[0]), sys.argv[1])
-
-        return self.implementation(args, prog)
+        # see if we have the forked version of alembic
+        # which excepts prog as an argument to correct the usage string
+        try:
+            return self.implementation(args, prog)
+        except TypeError:
+            return self.implementation(args)
