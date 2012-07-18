@@ -9,7 +9,7 @@ A [Flask Extension](http://flask.pocoo.org/docs/extensions/) to provide [Alembic
 * there are quite a lot of dependencies and assumptions at the moment
 * `init` throws an error when called with arguments
 
-It is intended that these issues will be resolved as development continues! There are probably more bugs than those listed - if you find one please [let me know](https://github.com/tobiasandtobias/flask-alembic/issues).
+It is intended that these issues will be resolved as development continues! There are probably more bugs than those listed - if you find one please [let us know](https://github.com/tobiasandtobias/flask-alembic/issues).
 
 ## Installation ##
 
