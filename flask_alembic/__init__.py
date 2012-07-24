@@ -1,6 +1,7 @@
 import argparse
 from alembic.config import main as console_script
 from alembic.config import Config
+from alembic import util
 from alembic.command import init, list_templates
 from flask.ext.script import Command
 import os
@@ -34,12 +35,15 @@ class ManageMigrations(Command):
         # let's hijack init and list_templates
         # we want to provide our own config object
         # in order to provide a custom get_template_directory function
-        if args[0] in ['list_templates', 'init']:
+        if len(args) and args[0] in ['list_templates', 'init']:
             config = FlaskAlembicConfig("alembic.ini")
             if args[0] == 'list_templates':
                 return list_templates(config)
             else:
-                return init(config, 'alembic', template='flask')
+                try:
+                    return init(config, 'alembic', template='flask')
+                except util.CommandError, e:
+                    util.err(str(e))
 
         import sys, os.path
         prog = '%s %s' % (os.path.basename(sys.argv[0]), sys.argv[1])

@@ -5,9 +5,9 @@ A [Flask Extension](http://flask.pocoo.org/docs/extensions/) to provide [Alembic
 ## Development Notes ##
 
 * This extension is largely untested at the moment
-* in order to provide a correct usage string it currently needs [this fork](https://bitbucket.org/edwardjstone/alembic) of alembic (although it should still work without it)
+* in order to provide a correct usage string it currently needs [the trunk](https://bitbucket.org/zzzeek/alembic) of alembic (although it should still work with the pypi version, just that the help displayed will be incorrect)
 * there are quite a lot of dependencies and assumptions at the moment
-* `init` throws an error when called with arguments
+* `migrate init` cannot be called with any arguments - it assumes (for now) a template argument `flask` and a directory argument `alembic`
 
 It is intended that these issues will be resolved as development continues! There are probably more bugs than those listed - if you find one please [let us know](https://github.com/tobiasandtobias/flask-alembic/issues).
 
@@ -23,9 +23,9 @@ This should also install the required dependencies. If you want the usage string
 
 and then
 
-    $ pip install -e hg+https://bitbucket.org/edwardjstone/alembic
+    $ pip install -e hg+https://bitbucket.org/zzzeek/alembic
 
-to get the forked version.
+to get the latest version with the usage string fix.
 
 ## Setup ##
 
