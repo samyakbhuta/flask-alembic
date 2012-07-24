@@ -38,7 +38,7 @@ First, ensure you have a `SQLAlchemy` object in your flask app:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
     db = SQLAlchemy(app)
 
-Please note that one of the assumptions currently made by `Flask-Alembic` is that your `SQLAlchemy` object will be called `db`. If it's not, you can edit the generated alembic `env.py` file appropriately.
+Please note that one of the assumptions currently made by `Flask-Alembic` is that your `SQLAlchemy` object will be called `db`. If it's not, you can edit the generated alembic `alembic.ini` file appropriately.
 
 The extension provides a [Flask-Script](http://packages.python.org/Flask-Script/) management command wrapper for the `alembic` command, which you will need to add to e.g. `manage.py`:
 
@@ -62,12 +62,10 @@ or
 
     $ python manage.py migrate list_templates
 
-since the `ManageMigrations` command hijacks these in order to provide a custom config object, which then supplies the appropriate flask templates to alembic. See the [alembic documentation](http://alembic.readthedocs.org/en/latest/index.html) for more details on the arguments you can use, and how to setup alembic.
+since the `ManageMigrations` command hijacks these in order to provide a custom config object, which then supplies the appropriate flask templates to alembic. See the [alembic documentation](http://alembic.readthedocs.org/en/latest/index.html) for more details on the arguments you can use, and how to use alembic.
 
 ## What Flask-Alembic does ##
 
 The extension sub-classes [`alembic.config.Config`](http://alembic.readthedocs.org/en/latest/api.html#alembic.config.Config) in order to provide a set of flask-specific templates (see [`get_template_directory`](http://alembic.readthedocs.org/en/latest/api.html#alembic.config.Config.get_template_directory)). The provided management command then hijacks `init` and `list_templates` in order to pass the flask-specific config.
 
-`manage.py migrate init` uses the flask templates to create an alembic `env.py` that sets the alembic `sqlalchemy.url` config value to the value of `SQLALCHEMY_DATABASE_URI` in the flask config, thereby avoiding repeating the value in more than one place.
-
-It also then imports the `SQLAlchemy` object from the flask app in order to populate `target_metadata` and enable autogeneration of revisions.
+`manage.py migrate init` uses the flask templates to create an alembic `env.py` that sets the alembic `sqlalchemy.url` config value to the value of `SQLALCHEMY_DATABASE_URI` in the flask config, thereby avoiding repeating the value in more than one place. It also creates a flask-specific `alembic.ini` which provides a config value `flask_sqlalchemy`, which you should change to the name of your Flask app SQLAlchemy object (the default is 'db'). `env.py` uses this information to import the `SQLAlchemy` object from the flask app in order to populate `target_metadata` and enable autogeneration of revisions.

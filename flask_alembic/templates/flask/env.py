@@ -20,8 +20,10 @@ with current_app.app_context():
     # set the database url
     config.set_main_option('sqlalchemy.url', current_app.config.get('SQLALCHEMY_DATABASE_URI'))
     flask_app = __import__('%s' % (current_app.name), fromlist=[current_app.name])
-# assumes Flask-SQLAlchemy has been instantiated as 'db'
-target_metadata = flask_app.db.metadata
+
+db_obj_name = config.get_main_option("flask_sqlalchemy")
+db_obj = getattr(flask_app, db_obj_name)
+target_metadata = db_obj.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
