@@ -47,6 +47,9 @@ The extension provides a [Flask-Script](http://packages.python.org/Flask-Script/
 
     manager = Manager(app)
     manager.add_command("migrate", ManageMigrations())
+    
+    if __name__ == "__main__":
+        manager.run()
 
 ## Usage ##
 
