@@ -21,6 +21,7 @@ setup(
     description='Alembic integration in Flask.',
     long_description=__doc__,
     packages=['flask_alembic'],
+    include_package_data=True,
     zip_safe=False,
     platforms='any',
     install_requires=[
