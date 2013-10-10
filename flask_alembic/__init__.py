@@ -28,7 +28,7 @@ class ManageMigrations(Command):
     def __init__(self, impl=console_script):
         self.implementation = impl
 
-    def create_parser(self, prog):
+    def create_parser(self, prog, parents=None):
         return CatchAllParser()
 
     def run(self, args):
